@@ -3,9 +3,13 @@ package com.example.MiniApp.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.MiniApp.exceptions.BookAlreadyBorrwoedException;
+import com.example.MiniApp.models.Book;
 import com.example.MiniApp.models.BrowBook;
 import com.example.MiniApp.models.ErrorDetails;
 import com.example.MiniApp.services.BooksServices;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +25,10 @@ public class BorrowController {
     }
     @PostMapping("/borrow/{id}")
     public ResponseEntity<?> postMethodName(@PathVariable int id) {
-        BrowBook Be;
+        List<Book> lb=new ArrayList<>();
         try{
-            Be=booksServices.postBrowBook(id);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(Be);
+            lb=booksServices.postBrowBook(id);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(lb);
 
         }catch(BookAlreadyBorrwoedException e){
             ErrorDetails er= new ErrorDetails();

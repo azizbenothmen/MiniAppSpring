@@ -15,15 +15,15 @@ public class BooksServices {
     private List<BrowBook> LBB;
     private List<Book> LAB;
 
-    public BrowBook postBrowBook(@RequestParam int id){
+    public List<Book> postBrowBook(@RequestParam int id){
         LAB=new ArrayList<>();
         LBB=new ArrayList<>();
         int idB;
-        Book ba=new Book();
-        ba.setId(123);
-        ba.setAuthor("JAMES CLEAR");
-        ba.setTitle("ATOMIC HABITS");
+        Book ba=new Book(125,"JAMES CLEAR","ATOMIC HABITS");
+        Book bc=new Book(127,"JAMES CLEAR","ATOMIC HABITS");
+
         LAB.add(ba);
+        LAB.add(bc);
         BrowBook BE=new BrowBook();
         for(Book B:LAB){
             idB=B.getId();
@@ -32,7 +32,8 @@ public class BooksServices {
                 BE.setIdBook(id);
                 BE.setMessage("OKKK");
                 LBB.add(BE);
-                return BE;
+                LAB.remove(B);
+                return LAB;
             }
         }
         throw new BookAlreadyBorrwoedException();
